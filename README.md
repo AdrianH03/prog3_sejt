@@ -1,4 +1,4 @@
-#Célja
+## Célja
 A sejtautomata program egy olyan program, ami képes egy adott szabály szerint szimulálni a
 sejtek alakulását. Maga a sejtautomata az automataelméletben tanulmányozott diszkrét
 számítási modell. A sejtautomatákat sejttereknek, tesszellációs automatáknak, homogén
