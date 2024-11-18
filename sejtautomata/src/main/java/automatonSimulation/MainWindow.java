@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.File;
 
 public class MainWindow extends JFrame{
+    //Sejtautomata modelljének inicializálása
+    private final CellularAutomaton automaton = new CellularAutomaton(30, 30);
     public MainWindow(){
-        //Sejtautomata modelljének inicializálása
-        CellularAutomaton automaton = new CellularAutomaton(30, 30);
 
         //Az ablak beállításai
         setTitle("Sejtautomata");
