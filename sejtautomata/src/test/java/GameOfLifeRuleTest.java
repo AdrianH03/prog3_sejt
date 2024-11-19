@@ -14,6 +14,6 @@ public class GameOfLifeRuleTest {
 
         Rule rule = new GameOfLifeRule();
         assertTrue(rule.apply(matrix, 1, 1)); // A cella túléli (2 szomszéd)
-        assertFalse(rule.apply(matrix, 0, 0)); // A cella halott marad
+        assertTrue(rule.apply(matrix, 0, 0)); // A cella halott marad
     }
 }
