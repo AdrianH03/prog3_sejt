@@ -1,10 +1,11 @@
 package automatonSimulation;
-
+import java.awt.Dimension;
 import javax.swing.*;
 
 public class ControlPanel extends JPanel{
     private CellularAutomaton automaton;
     private MainWindow mainWindow;
+    private JButton startStopButton;
 
     public ControlPanel(CellularAutomaton automaton, MainWindow mainWindow){
         this.automaton = automaton;
@@ -15,8 +16,18 @@ public class ControlPanel extends JPanel{
         JComboBox<String> ruleSelector = new JComboBox<>(new String[]{"Game of Life", "Replicator", "Seeds"});
         ruleSelector.addActionListener(e -> {
             String selectedRule = (String) ruleSelector.getSelectedItem();
+            assert selectedRule != null;
             automaton.setRule(createRule(selectedRule));
         });
+
+        //Alapértelmezett szabály beállítása
+        String defaultRule = (String) ruleSelector.getSelectedItem();
+        assert defaultRule != null;
+        automaton.setRule(createRule(defaultRule));
+
+        // Méretezés beállítása
+        ruleSelector.setMaximumSize(new Dimension(150, 25)); // Maximális szélesség és magasság
+        ruleSelector.setAlignmentX(LEFT_ALIGNMENT); // Igazítás a panel bal oldalához
         add(new JLabel("Szabály kiválasztása"));
         add(ruleSelector);
 
@@ -50,9 +61,22 @@ public class ControlPanel extends JPanel{
             }
         });
 
+        startStopButton = new JButton("Indítás");
+        startStopButton.addActionListener(e -> {
+            if(mainWindow.isRunning()){
+                mainWindow.stopSimulation();
+            }else{
+                mainWindow.startSimulation();
+            }
+        });
+        buttonPanel.add(startStopButton);
         buttonPanel.add(loadButton);
         buttonPanel.add(saveButton);
         add(buttonPanel);
+    }
+
+    public void updateStartButtonText(String text){
+        startStopButton.setText(text);
     }
 
     private Rule createRule(String ruleName){

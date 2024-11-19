@@ -8,6 +8,12 @@ import java.io.File;
 public class MainWindow extends JFrame{
     //Sejtautomata modelljének inicializálása
     private final CellularAutomaton automaton = new CellularAutomaton(30, 30);
+    private Timer simulationTimer;
+    private MatrixPanel matrixPanel;
+    private ControlPanel controlPanel;
+    private boolean isSimulationRunning = false;
+
+    //Konstruktor, panelek, alapinicializálás
     public MainWindow(){
 
         //Az ablak beállításai
@@ -16,16 +22,56 @@ public class MainWindow extends JFrame{
         setLayout(new BorderLayout());
 
         //A panelek hozzáadása
-        MatrixPanel matrixPanel = new MatrixPanel(automaton);
+        matrixPanel = new MatrixPanel(automaton);
         add(matrixPanel, BorderLayout.CENTER);
-
-        ControlPanel controlPanel = new ControlPanel(automaton, this);
+        controlPanel = new ControlPanel(automaton, this);
         add(controlPanel, BorderLayout.EAST);
+
+        //Időzítő inicializálása
+        simulationTimer = new Timer(500, e -> runSimulationStep());
 
         //Egyéb ablak beállítások beállítása
         setSize(800,600);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    //Mátrix frissítése és újrarajzolás
+    private void runSimulationStep(){
+        automaton.update();
+        matrixPanel.repaint();
+    }
+
+    //Szimuláció elindítása
+    public void startSimulation(){
+        if(!isAnyCellSelected()){
+            //Figyelmezetető ablak, ha nincs kijelölés
+            JOptionPane.showMessageDialog(this, "Nem lehet elindítani a szimulációt, mert nincs élő sejt!", "Figyelmeztetés",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(!isSimulationRunning){
+            simulationTimer.start();
+            isSimulationRunning = true;
+            controlPanel.updateStartButtonText("Leállítás");
+        }
+    }
+
+    //Szimuláció leállítása
+    public void stopSimulation(){
+        if(isSimulationRunning){
+            simulationTimer.stop();
+            isSimulationRunning = false;
+            controlPanel.updateStartButtonText("Indítás");
+        }
+    }
+
+    public boolean isRunning(){
+        return isSimulationRunning;
+    }
+
+    public void updateTimerDelay(int delay){
+        simulationTimer.setDelay(delay);
     }
 
     public void saveMatrixToFile(String filePath) {
@@ -58,6 +104,18 @@ public class MainWindow extends JFrame{
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Hiba történt a betöltés során: " + e.getMessage(), "Hiba", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private boolean isAnyCellSelected(){
+        boolean[][] matrix = automaton.getMatrix();
+        for(int row = 0; row < matrix.length; row++){
+            for(int col = 0; col < matrix[row].length; col++){
+                if(matrix[row][col]){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args){
