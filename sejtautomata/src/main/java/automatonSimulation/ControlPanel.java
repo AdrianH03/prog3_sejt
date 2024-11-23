@@ -54,20 +54,27 @@ public class ControlPanel extends JPanel{
         add(colorPickerPanel);
 
         //Kép beillesztése
+        JPanel gifPanel = new JPanel();
+        gifPanel.setLayout(new FlowLayout());
         ImageIcon originalIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/logo.gif")));
-        Image scaledImage = originalIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH); // 150x150 pixel
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        JLabel gifLabel = new JLabel(scaledIcon);
+        JLabel gifLabel = new JLabel(originalIcon);
         gifLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(Box.createVerticalStrut(10)); // Kis távolság
-        add(gifLabel);
+        gifPanel.add(Box.createVerticalStrut(10)); // Kis távolság
+        gifPanel.add(gifLabel);
+        add(gifPanel);
 
         //Sebesség csúszka
         //Minimum 1 maximum 10-es érték, kezdő érték pedig 5
+        JPanel speedPanel = new JPanel();
+        speedPanel.setLayout(new BoxLayout(speedPanel, BoxLayout.Y_AXIS));
+        speedPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JSlider speedSlider = new JSlider(1,10,5);
-        add(new JLabel("Sebesség:"));
-        add(Box.createVerticalStrut(5));
-        add(speedSlider);
+        JLabel speedLabel = new JLabel("Sebesség:");
+        speedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        speedPanel.add(speedLabel);
+        speedPanel.add(Box.createVerticalStrut(5));
+        speedPanel.add(speedSlider);
+        add(speedPanel);
 
         speedSlider.addChangeListener(e -> {
             int sliderValue = speedSlider.getValue();
