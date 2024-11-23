@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 public class MatrixPanel extends JPanel{
     private CellularAutomaton automaton;
+    private Color cellColor = Color.BLACK;
     // Cella mérete pixelben
     private final int cellSize = 20;
 
@@ -41,7 +42,7 @@ public class MatrixPanel extends JPanel{
             for(int col = 0; col < matrix[row].length; col++){
                 //cellák színezése az állapot alapján
                 if(matrix[row][col]){
-                    g.setColor(Color.BLACK);
+                    g.setColor(cellColor);
                 }else{
                     g.setColor(Color.WHITE);
                 }
@@ -52,5 +53,13 @@ public class MatrixPanel extends JPanel{
                 g.drawRect(col * cellSize, row * cellSize, cellSize, cellSize);
             }
         }
+    }
+
+    public Color getCellColor() {
+        return cellColor;
+    }
+
+    public void setCellColor(Color cellColor) {
+        this.cellColor = cellColor;
     }
 }

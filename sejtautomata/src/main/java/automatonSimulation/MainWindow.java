@@ -8,9 +8,9 @@ import java.io.File;
 public class MainWindow extends JFrame{
     //Sejtautomata modelljének inicializálása
     private final CellularAutomaton automaton = new CellularAutomaton(30, 30);
-    private Timer simulationTimer;
-    private MatrixPanel matrixPanel;
-    private ControlPanel controlPanel;
+    private final Timer simulationTimer;
+    private final MatrixPanel matrixPanel;
+    private final ControlPanel controlPanel;
     private boolean isSimulationRunning = false;
 
     //Konstruktor, panelek, alapinicializálás
@@ -28,12 +28,14 @@ public class MainWindow extends JFrame{
         add(controlPanel, BorderLayout.EAST);
 
         //Időzítő inicializálása
-        simulationTimer = new Timer(500, e -> runSimulationStep());
+        simulationTimer = new Timer(500, _ -> runSimulationStep());
+        simulationTimer.setRepeats(true);
 
         //Egyéb ablak beállítások beállítása
         setSize(800,600);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
     }
 
     //Mátrix frissítése és újrarajzolás
@@ -108,14 +110,18 @@ public class MainWindow extends JFrame{
 
     private boolean isAnyCellSelected(){
         boolean[][] matrix = automaton.getMatrix();
-        for(int row = 0; row < matrix.length; row++){
-            for(int col = 0; col < matrix[row].length; col++){
-                if(matrix[row][col]){
+        for (boolean[] cells : matrix) {
+            for (boolean cell : cells) {
+                if (cell) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public MatrixPanel getMatrixPanel(){
+        return matrixPanel;
     }
 
     public static void main(String[] args){
