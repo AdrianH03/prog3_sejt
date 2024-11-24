@@ -1,25 +1,14 @@
 package automatonSimulation;
 
-import java.awt.*;
+import java.util.Arrays;
 
 public class CellularAutomaton {
     private boolean[][] matrix; //Sejtek állapota
     private Rule currentRule; //Aktuális szabály
-    private Color cellColor;
     //Mátrix inicializálása
     public CellularAutomaton(int rows, int cols){
         matrix = new boolean[rows][cols];
         reset();
-    }
-
-    //Sejt színének lekérése
-    public Color getCellColor(){
-        return cellColor;
-    }
-
-    //Sejt színének beállítása
-    public void setCellColor(Color c){
-        this.cellColor = c;
     }
 
     //Mátrix frissítése az aktuális szabály alapján
@@ -61,10 +50,8 @@ public class CellularAutomaton {
 
     //Mátrix lenullázása, minden sejt halottnak nyílvánítása
     public void reset(){
-        for(int row = 0; row < matrix.length; row++){
-            for(int col = 0; col < matrix[row].length; col++){
-                matrix[row][col] = false;
-            }
+        for (boolean[] booleans : matrix) {
+            Arrays.fill(booleans, false);
         }
     }
 

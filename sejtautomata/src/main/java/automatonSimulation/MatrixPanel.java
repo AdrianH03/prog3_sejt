@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MatrixPanel extends JPanel{
-    private CellularAutomaton automaton;
+    private final CellularAutomaton automaton;
     private Color cellColor = Color.BLACK;
     // Cella mérete pixelben
     private final int cellSize = 20;

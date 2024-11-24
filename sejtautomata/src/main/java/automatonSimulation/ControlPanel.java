@@ -1,7 +1,6 @@
 package automatonSimulation;
 import java.awt.*;
 import java.util.Objects;
-import java.util.jar.JarEntry;
 import javax.swing.*;
 
 public class ControlPanel extends JPanel{
@@ -15,7 +14,7 @@ public class ControlPanel extends JPanel{
         rulePanel.setLayout(new BoxLayout(rulePanel, BoxLayout.Y_AXIS));
         rulePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JComboBox<String> ruleSelector = new JComboBox<>(new String[]{"Game of Life", "Replicator", "Seeds"});
-        ruleSelector.addActionListener(e -> {
+        ruleSelector.addActionListener(_ -> {
             String selectedRule = (String) ruleSelector.getSelectedItem();
             assert selectedRule != null;
             automaton.setRule(createRule(selectedRule));
@@ -42,7 +41,7 @@ public class ControlPanel extends JPanel{
         add(Box.createVerticalStrut(10));
         colorPickerPanel.add(new JLabel("Sejtszín kiválasztása:"));
         JButton colorPickerButton = new JButton("Válassz színt");
-        colorPickerButton.addActionListener(e -> {
+        colorPickerButton.addActionListener(_ -> {
             Color selectedColor = JColorChooser.showDialog(this, "Szín kiválasztása", Color.BLACK);
             if(selectedColor != null){
                 mainWindow.getMatrixPanel().setCellColor(selectedColor);
@@ -76,7 +75,7 @@ public class ControlPanel extends JPanel{
         speedPanel.add(speedSlider);
         add(speedPanel);
 
-        speedSlider.addChangeListener(e -> {
+        speedSlider.addChangeListener(_ -> {
             int sliderValue = speedSlider.getValue();
             int delay = 1000 / sliderValue;
             mainWindow.updateTimerDelay(delay);
@@ -89,7 +88,7 @@ public class ControlPanel extends JPanel{
         JButton saveButton = new JButton("Mentés");
 
         //Mentés gomb
-        saveButton.addActionListener(e -> {
+        saveButton.addActionListener(_ -> {
             JFileChooser fileChooser = new JFileChooser();
             if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 String filePath = fileChooser.getSelectedFile().getAbsolutePath();
@@ -98,7 +97,7 @@ public class ControlPanel extends JPanel{
         });
 
         //Betöltés gomb
-        loadButton.addActionListener(e -> {
+        loadButton.addActionListener(_ -> {
             JFileChooser fileChooser = new JFileChooser();
             if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 String filePath = fileChooser.getSelectedFile().getAbsolutePath();
