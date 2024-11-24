@@ -61,4 +61,8 @@ public class CellularAutomaton {
             throw new IndexOutOfBoundsException("A (" + row + "," + col + ") cella nem létezik!");
         }
     }
+
+    public Rule getRule() {
+        return currentRule;
+    }
 }

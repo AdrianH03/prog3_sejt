@@ -127,4 +127,78 @@ public class MainWindow extends JFrame{
     public static void main(String[] args){
         SwingUtilities.invokeLater(MainWindow::new);
     }
+
+    public int getTimerDelay() {
+        return simulationTimer.getDelay();
+    }
+
+    public boolean isMatrixSaved(String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(filePath);
+
+        // Ellenőrizzük, hogy a fájl létezik
+        if (!file.exists()) {
+            return false;
+        }
+
+        try {
+            // Beolvassuk a fájl tartalmát
+            boolean[][] savedMatrix = mapper.readValue(file, boolean[][].class);
+            boolean[][] currentMatrix = automaton.getMatrix();
+
+            // Ellenőrizzük, hogy a fájlban lévő mátrix mérete és tartalma egyezik-e az aktuális mátrixszal
+            if (savedMatrix.length != currentMatrix.length || savedMatrix[0].length != currentMatrix[0].length) {
+                return false;
+            }
+
+            for (int row = 0; row < savedMatrix.length; row++) {
+                for (int col = 0; col < savedMatrix[row].length; col++) {
+                    if (savedMatrix[row][col] != currentMatrix[row][col]) {
+                        return false;
+                    }
+                }
+            }
+
+            return true; // A fájlban lévő mátrix azonos az aktuális mátrixszal
+        } catch (IOException e) {
+            // Ha hiba történik az olvasás során, akkor a mentés érvénytelennek tekinthető
+            return false;
+        }
+    }
+
+    public boolean isMatrixLoaded(String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(filePath);
+
+        // Ellenőrizzük, hogy a fájl létezik
+        if (!file.exists()) {
+            return false;
+        }
+
+        try {
+            // Beolvassuk a fájl tartalmát
+            boolean[][] loadedMatrix = mapper.readValue(file, boolean[][].class);
+            boolean[][] currentMatrix = automaton.getMatrix();
+
+            // Ellenőrizzük, hogy a betöltött mátrix mérete megegyezik-e az aktuálissal
+            if (loadedMatrix.length != currentMatrix.length || loadedMatrix[0].length != currentMatrix[0].length) {
+                return false;
+            }
+
+            // Ellenőrizzük, hogy a betöltött mátrix tartalma megegyezik-e az aktuálissal
+            for (int row = 0; row < loadedMatrix.length; row++) {
+                for (int col = 0; col < loadedMatrix[row].length; col++) {
+                    if (loadedMatrix[row][col] != currentMatrix[row][col]) {
+                        return false;
+                    }
+                }
+            }
+
+            return true; // A betöltött mátrix mérete és tartalma is egyezik
+        } catch (IOException e) {
+            // Ha hiba történik az olvasás során, a betöltés érvénytelen
+            return false;
+        }
+    }
+
 }
