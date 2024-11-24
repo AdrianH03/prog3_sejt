@@ -62,6 +62,7 @@ public class CellularAutomaton {
         }
     }
 
+    //Kiválasztott szabály lekérdezése
     public Rule getRule() {
         return currentRule;
     }

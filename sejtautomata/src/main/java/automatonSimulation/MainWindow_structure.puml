@@ -1,0 +1,228 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "automatonSimulation.MainWindow",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_108873975 { 
+   	label=rules
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   GameOfLifeRule108873975[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameOfLifeRule</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ apply(matrix: boolean[][], row: int, col: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- countAliveNeighbors(matrix: boolean[][], row: int, col: int): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ReplicatorRule108873975[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ReplicatorRule</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ apply(matrix: boolean[][], row: int, col: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- countAliveNeighbors(matrix: boolean[][], row: int, col: int): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SeedsRule108873975[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SeedsRule</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ apply(matrix: boolean[][], row: int, col: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- countAliveNeighbors(matrix: boolean[][], row: int, col: int): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2073671401 { 
+   	label=automatonSimulation
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CellularAutomaton2073671401[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CellularAutomaton</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   currentRule: Rule [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   matrix: boolean[][] [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getCellState(row: int, col: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reset()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update()</TD></TR>
+<TR><TD ALIGN="LEFT" >- validateCell(row: int, col: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ControlPanel2073671401[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ControlPanel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   startStopButton: JButton [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- createRule(ruleName: String): Rule</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateStartButtonText(text: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MainWindow2073671401[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MainWindow</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   automaton: CellularAutomaton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   controlPanel: ControlPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isSimulationRunning: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   matrixPanel: MatrixPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   simulationTimer: Timer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ isMatrixLoaded(filePath: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isMatrixSaved(filePath: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadMatrixFromFile(filePath: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >- runSimulationStep()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveMatrixToFile(filePath: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startSimulation()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ stopSimulation()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateTimerDelay(delay: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MatrixPanel2073671401[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MatrixPanel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   automaton: CellularAutomaton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cellColor: Color [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cellSize: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># paintComponent(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+CellularAutomaton2073671401 -> GameOfLifeRule108873975[arrowhead=none];
+CellularAutomaton2073671401 -> ReplicatorRule108873975[arrowhead=none];
+CellularAutomaton2073671401 -> SeedsRule108873975[arrowhead=none];
+MainWindow2073671401 -> CellularAutomaton2073671401[label="automaton
+[0..1]"];
+MainWindow2073671401 -> ControlPanel2073671401[label="controlPanel
+[0..1]"];
+MainWindow2073671401 -> MatrixPanel2073671401[label="matrixPanel
+[0..1]"];
+MatrixPanel2073671401 -> CellularAutomaton2073671401[label="automaton
+[0..1]"];
+    
+}
+@enduml

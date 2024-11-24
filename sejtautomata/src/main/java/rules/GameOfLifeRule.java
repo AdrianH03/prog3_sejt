@@ -2,6 +2,7 @@ package rules;
 import automatonSimulation.Rule;
 
 public class GameOfLifeRule implements Rule{
+    //A szabály alkalmazása
     @Override
     public boolean apply(boolean[][] matrix, int row, int col){
         int aliveNeighbors = countAliveNeighbors(matrix, row, col);
@@ -12,6 +13,7 @@ public class GameOfLifeRule implements Rule{
         }
     }
 
+    //Élő szomszédos sejtek megszámolása
     private int countAliveNeighbors(boolean[][] matrix, int row, int col){
         int count = 0;
         for(int i = -1; i <= 1;i++){

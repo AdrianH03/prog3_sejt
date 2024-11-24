@@ -6,6 +6,7 @@ import javax.swing.*;
 public class ControlPanel extends JPanel{
     private final JButton startStopButton;
     public ControlPanel(CellularAutomaton automaton, MainWindow mainWindow){
+        //Alapok
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
@@ -27,11 +28,11 @@ public class ControlPanel extends JPanel{
         automaton.setRule(createRule(defaultRule));
 
         // Méretezés és igazítás beállítása
-        ruleSelector.setMaximumSize(new Dimension(150, 25)); // Maximális szélesség és magasság
+        ruleSelector.setMaximumSize(new Dimension(150, 25));
         ruleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         ruleSelector.setAlignmentX(Component.CENTER_ALIGNMENT);
         rulePanel.add(ruleLabel);
-        rulePanel.add(Box.createVerticalStrut(5)); // Kis távolság
+        rulePanel.add(Box.createVerticalStrut(5));
         rulePanel.add(ruleSelector);
         add(rulePanel);
 
@@ -106,6 +107,7 @@ public class ControlPanel extends JPanel{
             }
         });
 
+        //Indítás/Megállítás gomb
         startStopButton = new JButton("Indítás");
         startStopButton.addActionListener(_ -> {
             if(mainWindow.isRunning()){

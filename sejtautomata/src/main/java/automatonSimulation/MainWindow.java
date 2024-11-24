@@ -68,14 +68,17 @@ public class MainWindow extends JFrame{
         }
     }
 
+    //Fut-e a szimuláció
     public boolean isRunning(){
         return isSimulationRunning;
     }
 
+    //Milyen időközönként történjen a frissítés (Sebesség csúszka)
     public void updateTimerDelay(int delay){
         simulationTimer.setDelay(delay);
     }
 
+    //Mátrix JSON fájlba mentése
     public void saveMatrixToFile(String filePath) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -86,6 +89,7 @@ public class MainWindow extends JFrame{
         }
     }
 
+    //Mátrix betöltése JSON fájlból
     public void loadMatrixFromFile(String filePath) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -108,6 +112,7 @@ public class MainWindow extends JFrame{
         }
     }
 
+    //Ki van-e választva legalább egy cella
     private boolean isAnyCellSelected(){
         boolean[][] matrix = automaton.getMatrix();
         for (boolean[] cells : matrix) {
@@ -120,29 +125,26 @@ public class MainWindow extends JFrame{
         return false;
     }
 
+    //Mátrix panelének lekérdezése
     public MatrixPanel getMatrixPanel(){
         return matrixPanel;
     }
 
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(MainWindow::new);
-    }
-
+    //A sebesség lekérdezése
     public int getTimerDelay() {
         return simulationTimer.getDelay();
     }
 
+    //Le van-e mentve a mátrix
     public boolean isMatrixSaved(String filePath) {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(filePath);
 
-        // Ellenőrizzük, hogy a fájl létezik
         if (!file.exists()) {
             return false;
         }
 
         try {
-            // Beolvassuk a fájl tartalmát
             boolean[][] savedMatrix = mapper.readValue(file, boolean[][].class);
             boolean[][] currentMatrix = automaton.getMatrix();
 
@@ -159,24 +161,22 @@ public class MainWindow extends JFrame{
                 }
             }
 
-            return true; // A fájlban lévő mátrix azonos az aktuális mátrixszal
+            return true;
         } catch (IOException e) {
-            // Ha hiba történik az olvasás során, akkor a mentés érvénytelennek tekinthető
             return false;
         }
     }
 
+    //Megfelelően be van-e töltve a mátrix
     public boolean isMatrixLoaded(String filePath) {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(filePath);
 
-        // Ellenőrizzük, hogy a fájl létezik
         if (!file.exists()) {
             return false;
         }
 
         try {
-            // Beolvassuk a fájl tartalmát
             boolean[][] loadedMatrix = mapper.readValue(file, boolean[][].class);
             boolean[][] currentMatrix = automaton.getMatrix();
 
@@ -194,11 +194,13 @@ public class MainWindow extends JFrame{
                 }
             }
 
-            return true; // A betöltött mátrix mérete és tartalma is egyezik
+            return true;
         } catch (IOException e) {
-            // Ha hiba történik az olvasás során, a betöltés érvénytelen
             return false;
         }
     }
 
+    public static void main(String[] args){
+        SwingUtilities.invokeLater(MainWindow::new);
+    }
 }
