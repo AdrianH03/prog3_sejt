@@ -1,5 +1,7 @@
 package automatonSimulation;
 
+import rules.Rule;
+
 import java.util.Arrays;
 
 public class CellularAutomaton {

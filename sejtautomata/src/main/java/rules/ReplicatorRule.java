@@ -1,5 +1,4 @@
 package rules;
-import automatonSimulation.Rule;
 
 public class ReplicatorRule implements Rule{
     //A szabály alkalmazása

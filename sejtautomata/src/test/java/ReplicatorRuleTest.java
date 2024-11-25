@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import automatonSimulation.Rule;
+import rules.Rule;
 import rules.ReplicatorRule;
 
 public class ReplicatorRuleTest {

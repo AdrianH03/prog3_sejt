@@ -1,4 +1,6 @@
 package automatonSimulation;
+import rules.Rule;
+
 import java.awt.*;
 import java.util.Objects;
 import javax.swing.*;

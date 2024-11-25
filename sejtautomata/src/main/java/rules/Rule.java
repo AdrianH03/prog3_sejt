@@ -1,4 +1,4 @@
-package automatonSimulation;
+package rules;
 
 public interface Rule {
     //Egy adott cella új állapotának meghatározása a szabály alapján.

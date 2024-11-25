@@ -1,5 +1,4 @@
 package rules;
-import automatonSimulation.Rule;
 
 public class GameOfLifeRule implements Rule{
     //A szabály alkalmazása
