@@ -3,14 +3,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import rules.Rule;
 import rules.GameOfLifeRule;
 
+import java.util.List;
+
 public class GameOfLifeRuleTest {
     @Test
     public void testApply() {
-        boolean[][] matrix = {
-                {false, true, false},
-                {true, true, false},
-                {false, false, false}
-        };
+        List<List<Boolean>> matrix = List.of(List.of(false, true, false), List.of(true, true, false), List.of(false, false, false));
 
         Rule rule = new GameOfLifeRule();
         assertTrue(rule.apply(matrix, 1, 1)); // A cella túléli (2 szomszéd)

@@ -3,15 +3,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import rules.Rule;
 import rules.SeedsRule;
 
+import java.util.List;
+
 public class SeedsRuleTest {
 
     @Test
     public void testApply() {
-        boolean[][] matrix = {
-                {false, true, false},
-                {true, false, true},
-                {false, false, false}
-        };
+        List<List<Boolean>> matrix = List.of(List.of(false, true, false), List.of(true, false, true), List.of(false, false, false));
 
         Rule rule = new SeedsRule();
 

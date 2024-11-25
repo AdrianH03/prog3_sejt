@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import automatonSimulation.CellularAutomaton;
 import rules.GameOfLifeRule;
 
+import java.util.List;
+
 public class CellularAutomatonTest {
     @Test
     public void testUpdateWithRule() {
@@ -18,13 +20,11 @@ public class CellularAutomatonTest {
         automaton.update();
 
         // Várt kimeneti mátrix
-        boolean[][] expectedMatrix = {
-                {true, true, false},
-                {true, true, false},
-                {false, false, false}
-        };
+        List<List<Boolean>> expectedMatrix = List.of(List.of(true, true, false),
+                List.of(true, true, false),
+                List.of(false, false, false));
 
-        assertArrayEquals(expectedMatrix, automaton.getMatrix(), "A mátrix frissítése nem megfelelő.");
+        assertTrue(expectedMatrix.equals(automaton.getMatrix()), "A mátrix frissítése nem megfelelő.");
     }
 
     @Test

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.File;
+import java.util.List;
 
 public class MainWindow extends JFrame{
     //Sejtautomata modelljének inicializálása
@@ -95,7 +96,7 @@ public class MainWindow extends JFrame{
         try {
             boolean[][] loadedMatrix = mapper.readValue(new File(filePath), boolean[][].class);
             // Ellenőrzés, hogy a fájlban lévő mátrix mérete egyezik-e
-            if (loadedMatrix.length != automaton.getMatrix().length || loadedMatrix[0].length != automaton.getMatrix()[0].length) {
+            if (loadedMatrix.length != automaton.getMatrix().size() || loadedMatrix[0].length != automaton.getMatrix().get(0).size()) {
                 JOptionPane.showMessageDialog(this, "A fájlban lévő mátrix mérete nem megfelelő!", "Hiba", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -115,8 +116,8 @@ public class MainWindow extends JFrame{
 
     //Ki van-e választva legalább egy cella
     private boolean isAnyCellSelected(){
-        boolean[][] matrix = automaton.getMatrix();
-        for (boolean[] cells : matrix) {
+        List<List<Boolean>> matrix = automaton.getMatrix();
+        for (List<Boolean> cells : matrix) {
             for (boolean cell : cells) {
                 if (cell) {
                     return true;
@@ -147,16 +148,16 @@ public class MainWindow extends JFrame{
 
         try {
             boolean[][] savedMatrix = mapper.readValue(file, boolean[][].class);
-            boolean[][] currentMatrix = automaton.getMatrix();
+            List<List<Boolean>> currentMatrix = automaton.getMatrix();
 
             // Ellenőrizzük, hogy a fájlban lévő mátrix mérete és tartalma egyezik-e az aktuális mátrixszal
-            if (savedMatrix.length != currentMatrix.length || savedMatrix[0].length != currentMatrix[0].length) {
+            if (savedMatrix.length != currentMatrix.size() || savedMatrix[0].length != currentMatrix.get(0).size()) {
                 return false;
             }
 
             for (int row = 0; row < savedMatrix.length; row++) {
                 for (int col = 0; col < savedMatrix[row].length; col++) {
-                    if (savedMatrix[row][col] != currentMatrix[row][col]) {
+                    if (savedMatrix[row][col] != currentMatrix.get(row).get(col)) {
                         return false;
                     }
                 }
@@ -179,17 +180,17 @@ public class MainWindow extends JFrame{
 
         try {
             boolean[][] loadedMatrix = mapper.readValue(file, boolean[][].class);
-            boolean[][] currentMatrix = automaton.getMatrix();
+            List<List<Boolean>> currentMatrix = automaton.getMatrix();
 
             // Ellenőrizzük, hogy a betöltött mátrix mérete megegyezik-e az aktuálissal
-            if (loadedMatrix.length != currentMatrix.length || loadedMatrix[0].length != currentMatrix[0].length) {
+            if (loadedMatrix.length != currentMatrix.size() || loadedMatrix[0].length != currentMatrix.get(0).size()) {
                 return false;
             }
 
             // Ellenőrizzük, hogy a betöltött mátrix tartalma megegyezik-e az aktuálissal
             for (int row = 0; row < loadedMatrix.length; row++) {
                 for (int col = 0; col < loadedMatrix[row].length; col++) {
-                    if (loadedMatrix[row][col] != currentMatrix[row][col]) {
+                    if (loadedMatrix[row][col] != currentMatrix.get(row).get(col)) {
                         return false;
                     }
                 }

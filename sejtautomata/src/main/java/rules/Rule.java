@@ -1,6 +1,8 @@
 package rules;
 
+import java.util.List;
+
 public interface Rule {
     //Egy adott cella új állapotának meghatározása a szabály alapján.
-    boolean apply(boolean[][] matrix, int row, int col);
+    boolean apply(List<List<Boolean>> matrix, int row, int col);
 }
