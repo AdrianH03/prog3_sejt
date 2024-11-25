@@ -85,7 +85,7 @@ public class ControlPanelTest {
         assertNotNull(loadButton, "Nem található a betöltés gomb.");
 
         // Mentési és betöltési műveleteket itt szimulálhatunk fájlrendszer nélkül
-        String testPath = "test_matrix.txt";
+        String testPath = "test_matrix.json";
 
         // Mentés tesztelése
         mainWindow.saveMatrixToFile(testPath);
