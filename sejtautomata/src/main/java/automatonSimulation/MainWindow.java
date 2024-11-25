@@ -112,6 +112,7 @@ public class MainWindow extends JFrame{
         }
     }
 
+
     //Ki van-e választva legalább egy cella
     private boolean isAnyCellSelected(){
         boolean[][] matrix = automaton.getMatrix();
@@ -199,6 +200,11 @@ public class MainWindow extends JFrame{
             return false;
         }
     }
+
+    public CellularAutomaton getAutomaton() {
+        return automaton;
+    }
+
 
     public static void main(String[] args){
         SwingUtilities.invokeLater(MainWindow::new);

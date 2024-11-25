@@ -1,13 +1,39 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import automatonSimulation.CellularAutomaton;
+import rules.GameOfLifeRule;
 
 public class CellularAutomatonTest {
     @Test
-    public void testGetCellState() {
-        CellularAutomaton automaton = new CellularAutomaton(10, 10);
-        automaton.setCellState(3, 3, true); // Egy cellát állítsunk aktívra
-        assertTrue(automaton.getCellState(3, 3)); // Ellenőrizzük az állapotot
+    public void testUpdateWithRule() {
+        CellularAutomaton automaton = new CellularAutomaton(3, 3);
+        automaton.setRule(new GameOfLifeRule()); // Game of Life szabály
+
+        // Bemeneti mátrix inicializálása
+        automaton.setCellState(1, 1, true);
+        automaton.setCellState(0, 1, true);
+        automaton.setCellState(1, 0, true);
+
+        // Mátrix frissítése
+        automaton.update();
+
+        // Várt kimeneti mátrix
+        boolean[][] expectedMatrix = {
+                {true, true, false},
+                {true, true, false},
+                {false, false, false}
+        };
+
+        assertArrayEquals(expectedMatrix, automaton.getMatrix(), "A mátrix frissítése nem megfelelő.");
+    }
+
+    @Test
+    public void testUpdateWithoutRule() {
+        CellularAutomaton automaton = new CellularAutomaton(3, 3);
+
+        // Próbáljuk frissíteni a mátrixot szabály nélkül
+        Exception exception = assertThrows(IllegalStateException.class, automaton::update);
+        assertEquals("Nincs szabály beállítva", exception.getMessage());
     }
 
     @Test
