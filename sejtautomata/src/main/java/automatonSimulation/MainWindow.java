@@ -201,11 +201,6 @@ public class MainWindow extends JFrame{
         }
     }
 
-    public CellularAutomaton getAutomaton() {
-        return automaton;
-    }
-
-
     public static void main(String[] args){
         SwingUtilities.invokeLater(MainWindow::new);
     }
